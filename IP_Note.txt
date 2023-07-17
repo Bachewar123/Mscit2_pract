@@ -1,0 +1,101 @@
+>>>Program to plot the histogram of an image and categorise.
+a = imread("cm.tif");
+a =double(a);
+big=256;
+[row ,col ] = size(a);
+c=row*col;
+h=zeros(1,300);
+z = zeros(1,300);
+for n = 1:1:row
+for m = 1:1:col
+if a(n,m)==0
+a(n,m) = 1;
+end
+end
+end
+for n = 1:1:row
+for m = 1:1:col
+t= a(n,m);
+h(t) = h(t)+1;
+end
+end
+subplot(1,2,1);imshow(uint8(a));title('Image');
+subplot(1,2,2);bar(h);title('hist');
+
+>>>Program to read a color image and segment into RGB
+planes , histogram of color image.
+
+a = imread('vege.jpg');
+figure(3),subplot(2,2,1),imshow(a);
+title('Orignal Image');
+k=rgb2ntsc(a);
+figure(3),subplot(2,2,2),imshow(k);
+title('RGB TO NTSC');
+l=rgb2ycbcr(a);
+figure(3),subplot(2,2,3),imshow(l);
+title('RGB TO YCbCr');
+m=imcomplement(a);
+figure(3),subplot(2,2,4),imshow(m);
+title('RGB TO CMY');
+imr=a(:,:,1);
+img=a(:,:,2);
+imb=a(:,:,3);
+figure(4),subplot(2,2,1),imshow(a),title('original image');
+figure(4),subplot(2,2,2),imshow(imr),title('Red');
+figure(4),subplot(2,2,3),imshow(img),title('Green');
+figure(4),subplot(2,2,4),imshow(imb),title('Blue');
+
+
+>>>Program to apply Discrete Fourier Transform on an image.
+I=imread("vege.jpg");
+subplot(2,2,1)
+imshow(I)
+title("original")
+I=double(I);
+J=fft2(I);
+subplot(2,2,2)
+imshow(J)
+title("fourier transform image")
+L=fftshift(real(J));
+subplot(2,2,3)
+imshow(L)
+title("shifted F.T image")
+
+>>>morphological operations on the image.
+A) OPENING:-
+img=imread('cameraman.tif');
+se1 = strel('square',11);
+im2 = imerode(img,se1);
+im3 = imdilate(im2,se1);
+subplot(1,2,1),imshow(img),title('orignal image');
+subplot(1,2,2),imshow(im3),title('opening image');
+
+B) CLOSING:-
+aa=imread('cameraman.tif');
+se1=strel('square',11);
+IM2=imdilate(aa,se1);
+IM3=imerode(IM2,se1);
+subplot(1,2,1),imshow(aa),title('Original Image');
+subplot(1,2,2),imshow(IM3),title('Closed Image');
+
+C) MORPHOLOGICAL GRADIENT:-
+img=imread('cameraman.tif');
+se1=strel('square',12);
+im1=imdilate(img,se1);
+im2=imerode(im1,se1);
+g=im1-im2;
+subplot(2,2,1),imshow(img),title('Orignal Image');
+subplot(2,2,2),imshow(im1),title('Dilation Image');
+subplot(2,2,3),imshow(im2),title('Erotion Image');
+subplot(2,2,4),imshow(g),title('Gradient Image');
+
+D) TOP-HAT TRANSFORMATION:-
+i=imread('cameraman.tif');
+se1=strel('square',22);
+im1=imerode(i,se1);
+im2=imdilate(im1,se1);
+h=i-im2;
+subplot(2,2,1),imshow(i),title('Orignal Image');
+subplot(2,2,2),imshow(im1),title('Erotion Image');
+subplot(2,2,3),imshow(im2),title('Dilation Image');
+subplot(2,2,4),imshow(h),title('Top Hat Transformation Image');
